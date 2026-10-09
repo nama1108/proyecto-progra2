@@ -1,0 +1,13 @@
+target/
+*.class
+*.jar
+!.mvn/wrapper/*.jar
+
+src/main/resources/db.properties
+
+nbproject/private/
+nb-configuration.xml
+.idea/
+*.iml
+.vscode/
+.DS_Store
