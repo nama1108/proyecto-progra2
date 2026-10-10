@@ -73,6 +73,29 @@ public class ProductoDAO {
         }
     }
 
+    public Producto buscarParaActualizar(Connection con, int idProducto) throws SQLException {
+        String sql = "SELECT " + COLUMNAS + " FROM productos WHERE id_producto = ? FOR UPDATE";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idProducto);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? mapear(rs) : null;
+            }
+        }
+    }
+
+    public List<Producto> listarActivos() throws SQLException {
+        String sql = "SELECT " + COLUMNAS + " FROM productos WHERE activo = 'S' ORDER BY categoria, codigo";
+        List<Producto> productos = new ArrayList<>();
+        try (Connection con = ConexionBD.obtenerConexion();
+             PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                productos.add(mapear(rs));
+            }
+        }
+        return productos;
+    }
+
     public Producto buscarPorCodigo(String codigo) throws SQLException {
         String sql = "SELECT " + COLUMNAS + " FROM productos WHERE UPPER(codigo) = ?";
         try (Connection con = ConexionBD.obtenerConexion();
