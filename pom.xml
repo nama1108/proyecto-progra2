@@ -13,9 +13,7 @@
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <exec.mainClass>com.panpuntos.Main</exec.mainClass>
-        <lombok.version>1.18.38</lombok.version>
-    </properties>
+        <exec.mainClass>com.panpuntos.Main</exec.mainClass>    </properties>
 
     <dependencies>
         <dependency>
@@ -26,7 +24,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
+            <version>1.18.48</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -38,13 +36,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                            <version>${lombok.version}</version>
-                        </path>
-                    </annotationProcessorPaths>
+                    <proc>full</proc>
                 </configuration>
             </plugin>
             <plugin>

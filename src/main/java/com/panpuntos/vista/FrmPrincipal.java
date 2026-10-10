@@ -4,12 +4,25 @@ import java.awt.CardLayout;
 
 public class FrmPrincipal extends javax.swing.JFrame {
 
+    private final PanelClientes panelClientes = new PanelClientes();
+    private final PanelProductos panelProductos = new PanelProductos();
+
     public FrmPrincipal() {
         initComponents();
+        pnlContenido.add(panelClientes, "clientes");
+        pnlContenido.add(panelProductos, "productos");
         configurarEventos();
     }
 
     private void configurarEventos() {
+        btnClientes.addActionListener(e -> {
+            panelClientes.cargarClientes();
+            mostrarPanel("clientes");
+        });
+        btnProductos.addActionListener(e -> {
+            panelProductos.cargarProductos();
+            mostrarPanel("productos");
+        });
         btnSalir.addActionListener(e -> dispose());
     }
 
