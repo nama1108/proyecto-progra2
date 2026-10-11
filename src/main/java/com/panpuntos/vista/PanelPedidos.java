@@ -48,7 +48,8 @@ public class PanelPedidos extends javax.swing.JPanel {
         btnAgregar.addActionListener(e -> agregarItem());
         btnEliminar.addActionListener(e -> eliminarItem());
         btnLimpiar.addActionListener(e -> limpiarDetalle());
-        btnConfirmar.addActionListener(e -> confirmarPedido());
+        btnConfirmar.addActionListener(e -> confirmarPedido(false));
+        btnConfirmarCobrar.addActionListener(e -> confirmarPedido(true));
     }
 
     public void cargarCatalogo() {
@@ -215,12 +216,14 @@ public class PanelPedidos extends javax.swing.JPanel {
         lblPuntos.setText("Puntos que generará: " + pedido.getPuntos());
     }
 
-    private void confirmarPedido() {
+    private void confirmarPedido(boolean cobrarAhora) {
+        String metodo = (String) cmbMetodoPago.getSelectedItem();
         if (pedido.getCliente() != null && !pedido.estaVacio()) {
             int respuesta = JOptionPane.showConfirmDialog(this,
                     "Cliente: " + pedido.getCliente().getNombre()
                     + String.format("%nTotal: Q%.2f", pedido.getTotal())
                     + "\nPuntos que generará al pagarse: " + pedido.getPuntos()
+                    + (cobrarAhora ? "\nMétodo de pago: " + metodo : "")
                     + "\n\n¿Confirmar la creación del pedido?",
                     "Confirmar pedido", JOptionPane.YES_NO_OPTION);
             if (respuesta != JOptionPane.YES_OPTION) {
@@ -229,7 +232,14 @@ public class PanelPedidos extends javax.swing.JPanel {
         }
         try {
             pedidoService.crear(pedido);
-            JOptionPane.showMessageDialog(this, "Pedido #" + pedido.getIdPedido() + " registrado como PENDIENTE");
+            if (cobrarAhora) {
+                if (!AsistenteCobro.cobrar(this, pedido.getIdPedido(), pedido.getTotal(), metodo)) {
+                    JOptionPane.showMessageDialog(this, "El pedido #" + pedido.getIdPedido()
+                            + " quedó PENDIENTE. Puede cobrarlo desde el módulo Cobro.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Pedido #" + pedido.getIdPedido() + " registrado como PENDIENTE");
+            }
             nuevoPedido();
         } catch (ValidacionException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "No se puede confirmar", JOptionPane.WARNING_MESSAGE);
@@ -282,7 +292,10 @@ public class PanelPedidos extends javax.swing.JPanel {
         lblTotal = new javax.swing.JLabel();
         lblPuntos = new javax.swing.JLabel();
         pnlConfirmar = new javax.swing.JPanel();
+        lblMetodoPago = new javax.swing.JLabel();
+        cmbMetodoPago = new javax.swing.JComboBox<>();
         btnConfirmar = new javax.swing.JButton();
+        btnConfirmarCobrar = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
         setLayout(new java.awt.BorderLayout());
@@ -379,8 +392,17 @@ public class PanelPedidos extends javax.swing.JPanel {
 
         pnlConfirmar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
+        lblMetodoPago.setText("Método de pago:");
+        pnlConfirmar.add(lblMetodoPago);
+
+        cmbMetodoPago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "EFECTIVO", "TARJETA" }));
+        pnlConfirmar.add(cmbMetodoPago);
+
         btnConfirmar.setText("Confirmar pedido");
         pnlConfirmar.add(btnConfirmar);
+
+        btnConfirmarCobrar.setText("Confirmar y cobrar");
+        pnlConfirmar.add(btnConfirmarCobrar);
 
         pnlTotales.add(pnlConfirmar, java.awt.BorderLayout.EAST);
 
@@ -391,15 +413,18 @@ public class PanelPedidos extends javax.swing.JPanel {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnConfirmar;
+    private javax.swing.JButton btnConfirmarCobrar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JComboBox<Object> cmbItem;
+    private javax.swing.JComboBox<String> cmbMetodoPago;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JLabel lblCantidad;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblIdentificacion;
     private javax.swing.JLabel lblInfo;
     private javax.swing.JLabel lblItem;
+    private javax.swing.JLabel lblMetodoPago;
     private javax.swing.JLabel lblPuntos;
     private javax.swing.JLabel lblSaldo;
     private javax.swing.JLabel lblTipo;

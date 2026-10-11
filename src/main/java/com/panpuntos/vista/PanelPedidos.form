@@ -284,9 +284,32 @@
 <Property name="alignment" type="int" value="2"/>
 </Layout>
 <SubComponents>
+<Component class="javax.swing.JLabel" name="lblMetodoPago">
+<Properties>
+<Property name="text" type="java.lang.String" value="Método de pago:"/>
+</Properties>
+</Component>
+<Component class="javax.swing.JComboBox" name="cmbMetodoPago">
+<Properties>
+<Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+<StringArray count="2">
+<StringItem index="0" value="EFECTIVO"/>
+<StringItem index="1" value="TARJETA"/>
+</StringArray>
+</Property>
+</Properties>
+<AuxValues>
+<AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+</AuxValues>
+</Component>
 <Component class="javax.swing.JButton" name="btnConfirmar">
 <Properties>
 <Property name="text" type="java.lang.String" value="Confirmar pedido"/>
+</Properties>
+</Component>
+<Component class="javax.swing.JButton" name="btnConfirmarCobrar">
+<Properties>
+<Property name="text" type="java.lang.String" value="Confirmar y cobrar"/>
 </Properties>
 </Component>
 </SubComponents>

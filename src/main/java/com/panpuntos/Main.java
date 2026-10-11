@@ -4,6 +4,7 @@ import com.panpuntos.conexion.ConexionBD;
 import com.panpuntos.vista.FrmPrincipal;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -11,6 +12,7 @@ import javax.swing.UIManager;
 public class Main {
 
     public static void main(String[] args) {
+        Locale.setDefault(Locale.forLanguageTag("es-GT"));
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {

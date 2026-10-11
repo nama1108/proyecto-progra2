@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+      <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+        <EmptyBorder bottom="10" left="10" right="10" top="10"/>
+      </Border>
+    </Property>
+  </Properties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+  <SubComponents>
+<Container class="javax.swing.JPanel" name="pnlFiltro">
+<Constraints>
+<Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+<BorderConstraints direction="North"/>
+</Constraint>
+</Constraints>
+
+<Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
+<Property name="alignment" type="int" value="0"/>
+</Layout>
+<SubComponents>
+<Component class="javax.swing.JLabel" name="lblEstado">
+<Properties>
+<Property name="text" type="java.lang.String" value="Pedidos en estado:"/>
+</Properties>
+</Component>
+<Component class="javax.swing.JComboBox" name="cmbEstado">
+<Properties>
+<Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+<StringArray count="4">
+<StringItem index="0" value="PENDIENTE"/>
+<StringItem index="1" value="PAGADO"/>
+<StringItem index="2" value="ENTREGADO"/>
+<StringItem index="3" value="ANULADO"/>
+</StringArray>
+</Property>
+</Properties>
+<AuxValues>
+<AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+</AuxValues>
+</Component>
+<Component class="javax.swing.JButton" name="btnActualizar">
+<Properties>
+<Property name="text" type="java.lang.String" value="Actualizar"/>
+</Properties>
+</Component>
+</SubComponents>
+</Container>
+<Container class="javax.swing.JPanel" name="pnlCentro">
+<Constraints>
+<Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+<BorderConstraints direction="Center"/>
+</Constraint>
+</Constraints>
+
+<Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+<Property name="columns" type="int" value="2"/>
+<Property name="horizontalGap" type="int" value="10"/>
+<Property name="rows" type="int" value="1"/>
+</Layout>
+<SubComponents>
+<Container class="javax.swing.JPanel" name="pnlPedidos">
+<Properties>
+<Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+<Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+<TitledBorder title="Pedidos"/>
+</Border>
+</Property>
+</Properties>
+
+<Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+<SubComponents>
+<Container class="javax.swing.JScrollPane" name="scrPedidos">
+<AuxValues>
+<AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+</AuxValues>
+<Constraints>
+<Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+<BorderConstraints direction="Center"/>
+</Constraint>
+</Constraints>
+
+<Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+<SubComponents>
+<Component class="javax.swing.JTable" name="tblPedidos">
+</Component>
+</SubComponents>
+</Container>
+</SubComponents>
+</Container>
+<Container class="javax.swing.JPanel" name="pnlDetalle">
+<Properties>
+<Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+<Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+<TitledBorder title="Detalle del pedido seleccionado"/>
+</Border>
+</Property>
+</Properties>
+
+<Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+<SubComponents>
+<Container class="javax.swing.JScrollPane" name="scrDetalle">
+<AuxValues>
+<AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+</AuxValues>
+<Constraints>
+<Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+<BorderConstraints direction="Center"/>
+</Constraint>
+</Constraints>
+
+<Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+<SubComponents>
+<Component class="javax.swing.JTable" name="tblDetalle">
+</Component>
+</SubComponents>
+</Container>
+<Component class="javax.swing.JLabel" name="lblTotal">
+<Properties>
+<Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+<Font name="Dialog" size="16" style="1"/>
+</Property>
+<Property name="text" type="java.lang.String" value="Total: Q0.00"/>
+</Properties>
+<Constraints>
+<Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+<BorderConstraints direction="South"/>
+</Constraint>
+</Constraints>
+</Component>
+</SubComponents>
+</Container>
+</SubComponents>
+</Container>
+<Container class="javax.swing.JPanel" name="pnlAcciones">
+<Properties>
+<Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+<Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+<TitledBorder title="Acciones"/>
+</Border>
+</Property>
+</Properties>
+<Constraints>
+<Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+<BorderConstraints direction="South"/>
+</Constraint>
+</Constraints>
+
+<Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
+<Property name="alignment" type="int" value="0"/>
+</Layout>
+<SubComponents>
+<Component class="javax.swing.JLabel" name="lblMetodo">
+<Properties>
+<Property name="text" type="java.lang.String" value="Método de pago:"/>
+</Properties>
+</Component>
+<Component class="javax.swing.JComboBox" name="cmbMetodo">
+<Properties>
+<Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+<StringArray count="2">
+<StringItem index="0" value="EFECTIVO"/>
+<StringItem index="1" value="TARJETA"/>
+</StringArray>
+</Property>
+</Properties>
+<AuxValues>
+<AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+</AuxValues>
+</Component>
+<Component class="javax.swing.JButton" name="btnCobrar">
+<Properties>
+<Property name="text" type="java.lang.String" value="Cobrar"/>
+</Properties>
+</Component>
+<Component class="javax.swing.JButton" name="btnComprobante">
+<Properties>
+<Property name="text" type="java.lang.String" value="Ver comprobante"/>
+</Properties>
+</Component>
+<Component class="javax.swing.JButton" name="btnEntregar">
+<Properties>
+<Property name="text" type="java.lang.String" value="Marcar entregado"/>
+</Properties>
+</Component>
+<Component class="javax.swing.JButton" name="btnAnular">
+<Properties>
+<Property name="text" type="java.lang.String" value="Anular pedido"/>
+</Properties>
+</Component>
+</SubComponents>
+</Container>
+  </SubComponents>
+</Form>
