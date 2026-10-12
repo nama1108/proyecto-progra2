@@ -6,12 +6,8 @@ import com.panpuntos.model.PagoEfectivo;
 import com.panpuntos.model.PagoTarjeta;
 import com.panpuntos.servicio.CobroService;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 public final class AsistenteCobro {
 
@@ -94,12 +90,7 @@ public final class AsistenteCobro {
 
     public static void mostrarComprobante(Component padre, int idPedido) {
         try {
-            JTextArea area = new JTextArea(COBRO_SERVICE.generarComprobante(idPedido));
-            area.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 13));
-            area.setEditable(false);
-            JScrollPane scroll = new JScrollPane(area);
-            scroll.setPreferredSize(new Dimension(480, 420));
-            JOptionPane.showMessageDialog(padre, scroll, "Comprobante de venta", JOptionPane.PLAIN_MESSAGE);
+            Dialogos.mostrarTexto(padre, "Comprobante de venta", COBRO_SERVICE.generarComprobante(idPedido));
         } catch (ValidacionException e) {
             JOptionPane.showMessageDialog(padre, e.getMessage(), "Comprobante", JOptionPane.WARNING_MESSAGE);
         } catch (SQLException e) {

@@ -1,14 +1,28 @@
 package com.panpuntos.servicio;
 
 import com.panpuntos.dao.ClienteDAO;
+import com.panpuntos.dao.MovimientoPuntosDAO;
+import com.panpuntos.dao.PedidoDAO;
 import com.panpuntos.excepcion.ValidacionException;
 import com.panpuntos.model.Cliente;
+import com.panpuntos.model.MovimientoPuntos;
+import com.panpuntos.model.Pedido;
 import java.sql.SQLException;
 import java.util.List;
 
 public class ClienteService {
 
     private final ClienteDAO clienteDAO = new ClienteDAO();
+    private final PedidoDAO pedidoDAO = new PedidoDAO();
+    private final MovimientoPuntosDAO movimientoPuntosDAO = new MovimientoPuntosDAO();
+
+    public List<Pedido> listarPedidos(Cliente cliente) throws SQLException {
+        return pedidoDAO.listarPorCliente(cliente.getIdCliente());
+    }
+
+    public List<MovimientoPuntos> listarHistorialPuntos(Cliente cliente) throws SQLException {
+        return movimientoPuntosDAO.listarPorCliente(cliente.getIdCliente());
+    }
 
     public void registrar(Cliente cliente) throws ValidacionException, SQLException {
         validar(cliente);

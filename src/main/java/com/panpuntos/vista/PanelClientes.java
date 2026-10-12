@@ -2,8 +2,11 @@ package com.panpuntos.vista;
 
 import com.panpuntos.excepcion.ValidacionException;
 import com.panpuntos.model.Cliente;
+import com.panpuntos.model.MovimientoPuntos;
+import com.panpuntos.model.Pedido;
 import com.panpuntos.servicio.ClienteService;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -11,6 +14,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 public class PanelClientes extends javax.swing.JPanel {
+
+    private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     private final ClienteService clienteService = new ClienteService();
     private final DefaultTableModel modeloTabla = new DefaultTableModel(
@@ -35,6 +40,8 @@ public class PanelClientes extends javax.swing.JPanel {
         btnNuevo.addActionListener(e -> limpiar());
         btnGuardar.addActionListener(e -> guardar());
         btnCambiarEstado.addActionListener(e -> cambiarEstado());
+        btnVerPedidos.addActionListener(e -> verPedidos());
+        btnHistorial.addActionListener(e -> verHistorial());
         btnBuscar.addActionListener(e -> cargarClientes());
         txtBuscar.addActionListener(e -> cargarClientes());
         tblClientes.getSelectionModel().addListSelectionListener(e -> {
@@ -72,6 +79,8 @@ public class PanelClientes extends javax.swing.JPanel {
         txtCorreo.setText(clienteSeleccionado.getCorreo());
         txtPuntos.setText(String.valueOf(clienteSeleccionado.getPuntos()));
         btnCambiarEstado.setEnabled(true);
+        btnVerPedidos.setEnabled(true);
+        btnHistorial.setEnabled(true);
         btnCambiarEstado.setText(clienteSeleccionado.isActivo() ? "Desactivar" : "Activar");
     }
 
@@ -84,6 +93,8 @@ public class PanelClientes extends javax.swing.JPanel {
         txtCorreo.setText("");
         txtPuntos.setText("0");
         btnCambiarEstado.setEnabled(false);
+        btnVerPedidos.setEnabled(false);
+        btnHistorial.setEnabled(false);
         btnCambiarEstado.setText("Desactivar");
         tblClientes.clearSelection();
         cargarClientes();
@@ -136,6 +147,41 @@ public class PanelClientes extends javax.swing.JPanel {
         }
     }
 
+    private void verPedidos() {
+        if (clienteSeleccionado == null) {
+            return;
+        }
+        try {
+            List<Object[]> filas = new ArrayList<>();
+            for (Pedido p : clienteService.listarPedidos(clienteSeleccionado)) {
+                filas.add(new Object[]{"#" + p.getIdPedido(), p.getFecha().format(FORMATO_FECHA), p.getEstado(),
+                    String.format("%.2f", p.getTotal()), p.getPuntos()});
+            }
+            Dialogos.mostrarTabla(this, "Pedidos de " + clienteSeleccionado.getNombre(),
+                    new Object[]{"Pedido", "Fecha", "Estado", "Total (Q)", "Puntos"}, filas);
+        } catch (SQLException e) {
+            mostrarError(e);
+        }
+    }
+
+    private void verHistorial() {
+        if (clienteSeleccionado == null) {
+            return;
+        }
+        try {
+            List<Object[]> filas = new ArrayList<>();
+            for (MovimientoPuntos m : clienteService.listarHistorialPuntos(clienteSeleccionado)) {
+                filas.add(new Object[]{m.getFecha().format(FORMATO_FECHA), m.getTipo(), m.getReferencia(),
+                    (m.getPuntos() > 0 ? "+" : "") + m.getPuntos()});
+            }
+            Dialogos.mostrarTabla(this, "Historial de puntos de " + clienteSeleccionado.getNombre()
+                    + " (saldo: " + clienteSeleccionado.getPuntos() + ")",
+                    new Object[]{"Fecha", "Tipo", "Referencia", "Puntos"}, filas);
+        } catch (SQLException e) {
+            mostrarError(e);
+        }
+    }
+
     private void mostrarError(SQLException e) {
         JOptionPane.showMessageDialog(this, "Error de base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -162,6 +208,8 @@ public class PanelClientes extends javax.swing.JPanel {
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnCambiarEstado = new javax.swing.JButton();
+        btnVerPedidos = new javax.swing.JButton();
+        btnHistorial = new javax.swing.JButton();
         pnlLista = new javax.swing.JPanel();
         pnlBuscar = new javax.swing.JPanel();
         lblBuscar = new javax.swing.JLabel();
@@ -220,6 +268,12 @@ public class PanelClientes extends javax.swing.JPanel {
         btnCambiarEstado.setText("Desactivar");
         pnlBotones.add(btnCambiarEstado);
 
+        btnVerPedidos.setText("Ver pedidos");
+        pnlBotones.add(btnVerPedidos);
+
+        btnHistorial.setText("Historial de puntos");
+        pnlBotones.add(btnHistorial);
+
         pnlDatos.add(pnlBotones, java.awt.BorderLayout.SOUTH);
 
         add(pnlDatos, java.awt.BorderLayout.NORTH);
@@ -251,7 +305,9 @@ public class PanelClientes extends javax.swing.JPanel {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCambiarEstado;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnHistorial;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnVerPedidos;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblCorreo;

@@ -137,6 +137,16 @@
                 <Property name="text" type="java.lang.String" value="Desactivar"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JButton" name="btnVerPedidos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ver pedidos"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnHistorial">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Historial de puntos"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

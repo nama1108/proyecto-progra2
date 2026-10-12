@@ -75,6 +75,16 @@ public class ClienteDAO {
         }
     }
 
+    public Cliente buscarParaActualizar(Connection con, int idCliente) throws SQLException {
+        String sql = "SELECT " + COLUMNAS + " FROM clientes WHERE id_cliente = ? FOR UPDATE";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idCliente);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next() ? mapear(rs) : null;
+            }
+        }
+    }
+
     public Cliente buscarPorIdentificacion(String identificacion) throws SQLException {
         String sql = "SELECT " + COLUMNAS + " FROM clientes WHERE identificacion = ?";
         try (Connection con = ConexionBD.obtenerConexion();

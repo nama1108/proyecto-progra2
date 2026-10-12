@@ -9,6 +9,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private final PanelInventario panelInventario = new PanelInventario();
     private final PanelPedidos panelPedidos = new PanelPedidos();
     private final PanelCobro panelCobro = new PanelCobro();
+    private final PanelFidelizacion panelFidelizacion = new PanelFidelizacion();
 
     public FrmPrincipal() {
         initComponents();
@@ -17,6 +18,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         pnlContenido.add(panelInventario, "inventario");
         pnlContenido.add(panelPedidos, "pedidos");
         pnlContenido.add(panelCobro, "cobro");
+        pnlContenido.add(panelFidelizacion, "fidelizacion");
         configurarEventos();
     }
 
@@ -40,6 +42,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnCobro.addActionListener(e -> {
             panelCobro.cargarPedidos();
             mostrarPanel("cobro");
+        });
+        btnFidelizacion.addActionListener(e -> {
+            panelFidelizacion.cargarDatos();
+            mostrarPanel("fidelizacion");
         });
         btnSalir.addActionListener(e -> dispose());
     }
